@@ -1,0 +1,17 @@
+---
+# tasks file for rattermyer.nexus3
+- name: create nexus data volume container
+  docker_container:
+    name: nexus-data
+    image: sonatype/nexus:oss
+    volumes:
+    - /sonatype-work
+
+- name: create nexus container
+  docker_container:
+    name: nexus3
+    image: sonatype/nexus:oss
+    ports:
+    - "8081:8081"
+    volumes_from:
+    - nexus-data
