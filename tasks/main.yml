@@ -1,5 +1,11 @@
 ---
 # tasks file for rattermyer.nexus3
+- name: ensure pip is installed
+  apt:
+    name: pip
+- name: ensure docker-py is installed
+  pip:
+    name: docker-py
 - name: create nexus data volume container
   docker_container:
     name: nexus-data
