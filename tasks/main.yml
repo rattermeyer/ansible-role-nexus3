@@ -2,22 +2,23 @@
 # tasks file for rattermyer.nexus3
 - name: ensure pip is installed
   apt:
-    name: pip
+    name: python-pip
 - name: ensure docker-py is installed
   pip:
     name: docker-py
 - name: create nexus data volume container
   docker_container:
-    name: nexus-data
-    image: sonatype/nexus:oss
+    name: nexus3-data
+    image: sonatype/nexus3
+    command: echo "data-only container for Nexus"
     volumes:
     - /sonatype-work
 
 - name: create nexus container
   docker_container:
     name: nexus3
-    image: sonatype/nexus:oss
+    image: sonatype/nexus3
     ports:
     - "8081:8081"
     volumes_from:
-    - nexus-data
+    - nexus3-data
